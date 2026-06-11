@@ -1,0 +1,561 @@
+You are an expert full-stack frontend engineer and computer science instructor. Build a complete browser-based Data Structures and Algorithms Visualizer for a university Data Structure Lab course.
+
+PROJECT TYPE
+Use a plain static web app:
+- index.html
+- style.css
+- script.js
+
+Do NOT use React, Vite, Node.js, npm packages, external CDN libraries, canvas libraries, chart libraries, or backend code.
+Use only vanilla HTML, CSS, and JavaScript.
+The project must run directly in Replit’s HTML/CSS/JS preview.
+
+MAIN GOAL
+Create a polished interactive DSA Visualizer for the following 17 Data Structure Lab experiments:
+
+1. One-Dimensional Array
+2. Two-Dimensional Array
+3. One-Dimensional Array Basic Operations:
+   - Traversal
+   - Insertion
+   - Deletion
+   - Searching
+4. Stack Using Array:
+   - Push
+   - Pop
+   - Peek
+   - Stack Overflow
+   - Stack Underflow
+5. Linear Queue Using Array:
+   - Enqueue
+   - Dequeue
+   - Display
+   - Overflow
+   - Underflow
+6. Circular Queue Using Array:
+   - Enqueue
+   - Dequeue
+   - Display
+7. Singly Linked List:
+   - Insert at Beginning
+   - Insert at End
+   - Delete
+   - Display
+8. Stack Using Linked List:
+   - Push
+   - Pop
+   - Display
+9. Linear Search
+10. Binary Search
+11. Bubble Sort
+12. Array Reverse
+13. Matrix Addition
+14. Matrix Multiplication
+15. Matrix Transpose
+16. String Length, Copy, and Concatenation:
+   - strlen-style length
+   - strcpy-style copy
+   - strcat-style concatenation
+17. Palindrome Checking using array/string
+
+Also add these advanced extensions:
+18. Selection Sort
+19. Insertion Sort
+20. Merge Sort
+21. Quick Sort
+22. Priority Queue
+23. Doubly Linked List
+24. Hash Table with Linear Probing
+25. Binary Search Tree:
+    - Insert
+    - Search
+    - Inorder Traversal
+26. Graph BFS
+27. Graph DFS
+
+CORE VISUALIZATION REQUIREMENTS
+The app must not only calculate outputs. It must animate algorithm states step by step.
+
+For every visualizer:
+- Show the current data structure visually.
+- Highlight the active element/node/cell.
+- Highlight compared values.
+- Highlight swaps or pointer changes.
+- Show a short caption explaining the current step.
+- Add a log panel showing recent operations.
+- Add a speed slider to control animation speed.
+- Prevent users from starting another animation while one is running.
+- Display clear errors for invalid input.
+
+UI REQUIREMENTS
+Create a professional dark-themed interface.
+
+Layout:
+- Top header:
+  - Title: “DSA Visualizer”
+  - Subtitle: “Interactive Data Structures and Algorithms Lab Visualizer”
+  - Animation speed slider
+- Left sidebar navigation:
+  - 1D Array Lab
+  - 2D Array + Matrix
+  - Stack Array
+  - Linear Queue
+  - Circular Queue
+  - Singly Linked List
+  - Linked Stack
+  - Searching
+  - Sorting
+  - Strings + Palindrome
+  - Advanced DS/Algo
+- Main panel:
+  - Module title
+  - Module description
+  - Dynamic controls area
+  - Visualization area
+  - Status/log area
+
+IMPORTANT HTML ID CONTRACT
+The JavaScript must use these IDs exactly:
+
+#speedRange
+#speedValue
+#moduleTitle
+#moduleDesc
+#controls
+#visual
+#status
+#log
+
+Sidebar buttons must have class:
+.nav
+
+Each sidebar button must have a data-module value:
+
+arrayLab
+matrixLab
+stackArray
+linearQueue
+circularQueue
+linkedList
+linkedStack
+searching
+sorting
+strings
+advanced
+
+Example:
+
+<button class="nav active" data-module="arrayLab">1D Array Lab</button>
+
+FILE RESPONSIBILITIES
+
+index.html:
+- Build the complete shell/layout.
+- Link style.css correctly.
+- Load script.js at the end of body using:
+  <script src="script.js"></script>
+- Include all required IDs.
+- Do not put the full app logic inline inside index.html.
+
+style.css:
+- Professional dark theme.
+- Responsive layout.
+- Sidebar navigation.
+- Cards/panels.
+- Array cells.
+- Stack cells.
+- Queue cells.
+- Matrix cells.
+- Linked-list nodes.
+- Tree nodes.
+- Graph nodes.
+- Highlight states:
+  - compare/current
+  - swap/move
+  - found/result
+  - pivot/root
+  - inactive
+- Smooth transitions.
+- Mobile-friendly fallback.
+
+script.js:
+- Implement the entire app logic.
+- Use no external dependencies.
+- Use only browser-compatible JavaScript.
+- Avoid modern JS methods that may fail in older online previews:
+  - Do not use replaceAll().
+  - Do not use Array.prototype.at().
+- Use this safer boot pattern:
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", boot);
+} else {
+  boot();
+}
+
+GLOBAL JAVASCRIPT ARCHITECTURE
+Create a clean state object:
+
+const app = {
+  delay: 420,
+  running: false,
+  module: "arrayLab",
+  state: {},
+  nodeId: 1
+};
+
+Required helper functions:
+- $(selector)
+- $$(selector)
+- html(value)
+- sleep(ms)
+- setStatus(message, type)
+- log(message)
+- clearLog()
+- setControls(markup)
+- show(markup)
+- parseNums(text)
+- parseMatrix(text)
+- run(asyncFunction)
+- renderArray(...)
+- renderStack(...)
+- renderQueue(...)
+- renderSLL(...)
+- renderDLL(...)
+- renderMatrix(...)
+- renderString(...)
+- renderHash(...)
+- renderBST(...)
+- renderGraph(...)
+- selectModule(name)
+- boot()
+
+MODULE DETAILS
+
+1D ARRAY LAB
+Inputs:
+- Array values
+- Index/position
+- Value/key
+
+Buttons:
+- Load
+- Traversal
+- Insert
+- Delete
+- Linear Search
+- Reverse
+
+Visualization:
+- Render array as memory blocks.
+- Show index above/inside each block.
+- Show active pointer labels like i, left, right.
+- For insertion, animate shifting elements right.
+- For deletion, animate shifting elements left.
+- For reverse, animate two-pointer swaps.
+
+2D ARRAY + MATRIX
+Inputs:
+- Matrix A textarea
+- Matrix B textarea
+Rows can be separated by semicolon or newline.
+Numbers can be separated by space or comma.
+
+Buttons:
+- 2D Traverse A
+- A + B
+- A × B
+- Transpose A
+
+Validation:
+- Matrix addition requires same dimensions.
+- Matrix multiplication requires columns(A) = rows(B).
+
+Visualization:
+- Matrix grid.
+- Highlight active cell.
+- Show formula caption:
+  C[i][j] = A[i][j] + B[i][j]
+  C[i][j] += A[i][k] × B[k][j]
+  T[j][i] = A[i][j]
+
+STACK USING ARRAY
+Inputs:
+- Capacity
+- Value
+
+Buttons:
+- Reset
+- Push
+- Pop
+- Peek
+
+Visualization:
+- Vertical stack.
+- Mark TOP.
+- Show overflow when full.
+- Show underflow when empty.
+
+LINEAR QUEUE
+Inputs:
+- Capacity
+- Value
+
+Buttons:
+- Reset
+- Enqueue
+- Dequeue
+
+Visualization:
+- Horizontal array.
+- Mark FRONT and REAR.
+- Linear queue should show overflow when rear reaches last index.
+- Reset front and rear when queue becomes empty.
+
+CIRCULAR QUEUE
+Inputs:
+- Capacity
+- Value
+
+Buttons:
+- Reset
+- Enqueue
+- Dequeue
+
+Visualization:
+- Horizontal/circular-style cells.
+- Mark FRONT and REAR.
+- Show formula:
+  next = (index + 1) % capacity
+- Correctly support wrap-around.
+
+SINGLY LINKED LIST
+Input:
+- Value
+
+Buttons:
+- Insert Beginning
+- Insert End
+- Delete Value
+- Display
+- Reset
+
+Visualization:
+- HEAD → [data | next](address) → [data | next](address) → NULL
+- Fake memory addresses are acceptable.
+- Animate allocation, head update, traversal, and bypass deletion.
+
+LINKED STACK
+Input:
+- Value
+
+Buttons:
+- Push
+- Pop
+- Reset
+
+Visualization:
+- TOP → node → node → NULL
+- Push inserts at head.
+- Pop removes head.
+- Show underflow when empty.
+
+SEARCHING
+Inputs:
+- Array values
+- Search key
+
+Buttons:
+- Load
+- Linear Search
+- Binary Search
+
+Binary search:
+- Sort the array first.
+- Show low, mid, high pointers.
+- Highlight active search range.
+- Show found/not found.
+
+SORTING
+Inputs:
+- Array values
+
+Buttons:
+- Load
+- Bubble
+- Selection
+- Insertion
+- Merge
+- Quick
+
+Visualization:
+- Bubble: compare adjacent elements and animate swaps.
+- Selection: track min index.
+- Insertion: show key and shifting.
+- Merge: show recursive ranges and merge writes.
+- Quick: show pivot, partition comparisons, and swaps.
+
+STRINGS + PALINDROME
+Inputs:
+- String 1
+- String 2
+
+Buttons:
+- Length
+- Copy
+- Concatenate
+- Palindrome
+
+Visualization:
+- Show strings as character arrays with indices.
+- Length counts characters one by one.
+- Copy copies source to destination one character at a time.
+- Concatenation appends second string to first.
+- Palindrome uses left/right pointer comparison.
+
+ADVANCED DS/ALGO
+Use a dropdown with:
+- Priority Queue
+- Doubly Linked List
+- Hash Table
+- Binary Search Tree
+- Graph BFS/DFS
+
+Priority Queue:
+- Inputs: value, priority.
+- Lower priority number means served first.
+- Buttons: Enqueue, Dequeue, Reset.
+- Show ordered queue.
+
+Doubly Linked List:
+- Inputs: value.
+- Buttons: Insert Beginning, Insert End, Delete, Reset.
+- Visualization:
+  NULL ⇄ [prev | data | next] ⇄ [prev | data | next] ⇄ NULL
+
+Hash Table:
+- Inputs: key, table size.
+- Buttons: New Table, Insert, Search.
+- Hash function:
+  index = (key + i) % tableSize
+- Use linear probing.
+- Animate each probe.
+
+Binary Search Tree:
+- Inputs: bulk values, single value.
+- Buttons:
+  - Build
+  - Insert
+  - Search
+  - Inorder
+  - Reset
+- Render tree using nested HTML.
+- Highlight current node during insert/search.
+- Show inorder result in status.
+
+Graph BFS/DFS:
+- Inputs:
+  - Edges like: A-B,A-C,B-D,C-E,D-E,E-F
+  - Start node
+- Buttons:
+  - Build
+  - BFS
+  - DFS
+- Render adjacency list as graph cards.
+- Highlight visited nodes.
+- Show BFS/DFS order in status.
+
+ANIMATION ENGINE
+Use async/await and sleep().
+Example:
+
+async function bubbleSort() {
+  for (...) {
+    renderArray(...);
+    await sleep();
+  }
+}
+
+All algorithm buttons must call:
+
+run(functionName)
+
+The run() wrapper must:
+- prevent duplicate execution
+- disable buttons during animation
+- catch errors
+- restore buttons after completion
+
+ERROR HANDLING
+Show readable errors in #status and #log.
+Examples:
+- “Invalid insertion position.”
+- “Stack overflow.”
+- “Queue underflow.”
+- “Matrix addition requires equal dimensions.”
+- “Binary search requires sorted data; sorting first.”
+- “Start node not found.”
+
+ACCEPTANCE TESTS
+After implementation, test these inside Replit preview:
+
+1. Page loads and sidebar appears.
+2. Default module is 1D Array Lab.
+3. Control panel is not empty.
+4. Clicking each sidebar item changes module title and controls.
+5. 1D Array:
+   - Load: 5 2 9 1 7
+   - Traversal works.
+   - Insert value 10 at index 2 works.
+   - Delete index 1 works.
+   - Search key 9 works.
+   - Reverse works.
+6. Matrix:
+   - A = 1 2; 3 4
+   - B = 5 6; 7 8
+   - Addition works.
+   - Multiplication works.
+   - Transpose works.
+7. Stack:
+   - Push until full gives overflow.
+   - Pop until empty gives underflow.
+8. Queue:
+   - Enqueue/dequeue moves FRONT and REAR.
+9. Circular Queue:
+   - Wrap-around works.
+10. Linked List:
+   - Insert beginning/end, display, delete all work.
+11. Searching:
+   - Linear search finds key.
+   - Binary search sorts first, then finds key.
+12. Sorting:
+   - Bubble, selection, insertion, merge, quick all sort correctly.
+13. Strings:
+   - length("level") = 5.
+   - copy works.
+   - concat works.
+   - palindrome("level") returns palindrome.
+14. Advanced:
+   - Priority Queue enqueue/dequeue works.
+   - Hash table probing works.
+   - BST insert/search/inorder works.
+   - Graph BFS/DFS works.
+
+DEBUGGING REQUIREMENTS
+If the app loads but the control panel is empty:
+- Check script.js is linked correctly.
+- Check all HTML IDs exist.
+- Check DOMContentLoaded boot logic.
+- Check console errors.
+- Fix the first JavaScript error before continuing.
+
+FINAL OUTPUT
+Return the complete contents of:
+1. index.html
+2. style.css
+3. script.js
+
+Do not give partial code.
+Do not omit any module.
+Do not say “continue later.”
+The project must be complete, runnable, and tested in Replit preview.
