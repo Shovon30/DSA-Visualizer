@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>DSA Visualizer</title>
+  <meta name="description" content="Interactive Data Structures and Algorithms Lab Visualizer" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <!-- Mobile backdrop -->
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="app-header">
+    <div class="header-left">
+      <button id="menuToggle" class="icon-btn" aria-label="Toggle sidebar" title="Toggle sidebar">
+        <svg id="menuIconOpen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg id="menuIconClose" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="header-brand">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="4" height="18" rx="1"/>
+          <rect x="9" y="7" width="4" height="14" rx="1"/>
+          <rect x="16" y="11" width="4" height="10" rx="1"/>
+        </svg>
+        <div>
+          <div class="header-title">DSA Visualizer</div>
+          <div class="header-subtitle">Interactive Data Structures &amp; Algorithms Lab</div>
+        </div>
+      </div>
+    </div>
+    <div class="header-controls">
+      <label class="speed-label" for="speedRange">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <span class="speed-text">Speed</span>
+      </label>
+      <div class="speed-track">
+        <input type="range" id="speedRange" min="1" max="10" value="5" />
+      </div>
+      <span id="speedValue" class="speed-value">5</span>
+    </div>
+  </header>
+
+  <!-- ===== APP BODY ===== -->
+  <div class="app-body">
+
+    <!-- ===== SIDEBAR ===== -->
+    <nav id="sidebar" class="sidebar">
+
+      <!-- Desktop collapse toggle -->
+      <button id="sidebarCollapseBtn" class="sidebar-collapse-btn" aria-label="Collapse sidebar" title="Collapse sidebar">
+        <svg class="icon-collapse-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M15 18l-6-6 6-6"/></svg>
+        <svg class="icon-collapse-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+
+      <div class="sidebar-section-label"><span>Core Labs</span></div>
+
+      <button class="nav active" data-module="arrayLab" title="1D Array Lab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="2" y="8" width="4" height="8" rx="1"/><rect x="8" y="8" width="4" height="8" rx="1"/><rect x="14" y="8" width="4" height="8" rx="1"/><rect x="20" y="8" width="2" height="8" rx="1"/></svg>
+        <span>1D Array Lab</span>
+      </button>
+      <button class="nav" data-module="matrixLab" title="2D Array + Matrix">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="13" y="3" width="7" height="7" rx="1"/><rect x="3" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>
+        <span>2D Array + Matrix</span>
+      </button>
+      <button class="nav" data-module="stackArray" title="Stack (Array)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><rect x="3" y="16" width="18" height="4" rx="1"/><rect x="3" y="10" width="18" height="4" rx="1"/><rect x="3" y="4" width="18" height="4" rx="1"/></svg>
+        <span>Stack (Array)</span>
+      </button>
+      <button class="nav" data-module="linearQueue" title="Linear Queue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        <span>Linear Queue</span>
+      </button>
+      <button class="nav" data-module="circularQueue" title="Circular Queue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="12" r="9"/><path d="M12 3v4M12 21v-4M3 12h4M21 12h-4"/></svg>
+        <span>Circular Queue</span>
+      </button>
+      <button class="nav" data-module="linkedList" title="Singly Linked List">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="5" cy="12" r="3"/><circle cx="19" cy="12" r="3"/><path d="M8 12h8"/></svg>
+        <span>Singly Linked List</span>
+      </button>
+      <button class="nav" data-module="linkedStack" title="Linked Stack">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="12" cy="5" r="3"/><circle cx="12" cy="14" r="3"/><path d="M12 8v3"/></svg>
+        <span>Linked Stack</span>
+      </button>
+
+      <div class="sidebar-section-label"><span>Algorithms</span></div>
+
+      <button class="nav" data-module="searching" title="Searching">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <span>Searching</span>
+      </button>
+      <button class="nav" data-module="sorting" title="Sorting">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M3 6h18M7 12h10M11 18h2"/></svg>
+        <span>Sorting</span>
+      </button>
+      <button class="nav" data-module="strings" title="Strings + Palindrome">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 7h16M4 12h12M4 17h8"/></svg>
+        <span>Strings + Palindrome</span>
+      </button>
+
+      <div class="sidebar-section-label"><span>Advanced</span></div>
+
+      <button class="nav" data-module="advanced" title="Advanced DS/Algo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span>Advanced DS/Algo</span>
+      </button>
+    </nav>
+
+    <!-- ===== MAIN PANEL ===== -->
+    <main class="main-panel">
+      <div class="module-header">
+        <div class="module-header-inner">
+          <h1 id="moduleTitle" class="module-title">1D Array Lab</h1>
+          <p id="moduleDesc" class="module-desc">Visualize one-dimensional array operations step by step.</p>
+        </div>
+      </div>
+      <div id="controls" class="controls-area"></div>
+      <div id="visual" class="visual-area">
+        <div class="visual-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="44" height="44"><rect x="2" y="3" width="4" height="18" rx="1"/><rect x="9" y="7" width="4" height="14" rx="1"/><rect x="16" y="11" width="4" height="10" rx="1"/></svg>
+          <p>Select an operation to begin visualization.</p>
+        </div>
+      </div>
+      <div class="bottom-area">
+        <div id="status" class="status-bar info">Ready. Enter data and choose an operation.</div>
+        <div class="log-panel">
+          <div class="log-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>Operation Log</span>
+            <button id="clearLogBtn" class="log-clear-btn">Clear</button>
+          </div>
+          <div id="log" class="log-body"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>
